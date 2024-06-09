@@ -65,4 +65,8 @@ The graph on the bottom is a bar graph that ranks the five most frequently used 
 >
 > However, this is done case-sensitively (i.e. in the above example, "Toilet" and "Paper" would **not** be excluded)
 
+Users can use the graph to extrapolate some information. For example, the scatter plots can be used to determine the price ranges that have the most sales or watchers.
+
+The bar graph can also be used to determine which words are most often used in the product's title.
+
 
