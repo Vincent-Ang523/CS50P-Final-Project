@@ -22,8 +22,10 @@ def scraper(link):
         name_data.append(item_name)
         item_price = item.find('span', class_='s-item__price').text
         price_data.append(item_price)
+
         #filters for span whose class name is EXACTLY "BOLD"
         item_watchers_list = item.select('span[class="BOLD"]')
+
         #removes span element not containing watchers or sold number
         pattern = re.compile(r'\d+(\+)? (watchers|sold).+')
         item_watchers = list(filter(lambda s: pattern.search(str(s)), item_watchers_list))
