@@ -122,3 +122,23 @@ df = pd.DataFrame(
         {'Name': names, 'Lower Price': lower_price, 'Upper Price': upper_price, 'Watchers': watchers_number,
          'Sold': sold_number})
 ```
+
+### data_summary(df)
+This function takes the dataframe "df" and prints a summary of the data by calculating mean, median, standard deviation, and the number of zeros in the "sold" and "watchers" column.
+
+The function would return a string in the format shown
+
+![Project Screenshot4](https://github.com/Vincent-Ang523/CS50P-Final-Project/assets/99592424/2b8945ad-36fd-497f-807f-b5064ab2535d)
+
+### name_frequency(df):
+This function would return a new dataframe that stores the 5 most used words in the product listings' titles. The dataframe would store the words themselves and the frequency of each word. 
+```python
+# removes punctuation from Name column
+df['Name'] = df['Name'].apply(lambda x: re.sub(r'[^\w\s]', '', x))
+# finds top 5 most frequent words in product name except search keywords itself
+frequency_count = Series(' '.join(df.Name).split()).value_counts()[2:7]
+df_frequency = pd.DataFrame({'Word': frequency_count.index, 'Frequency': frequency_count.values})
+return df_frequency
+```
+### data_visualization(df, df_frequency):
+This function takes two dataframes as input. The first is the dataframe returned by the data_cleaning function, "df". The second is "df_frequency" returned by the name_frequency function. It would then use the matplotlib library to output a subplot which contains a set of scatter plots and a bar graph. The format of this subplot is shown in the aforementioned "how to use section".
