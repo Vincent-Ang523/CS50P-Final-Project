@@ -1,5 +1,7 @@
 # eBay Web Scraper
   #### Video Demo: https://youtu.be/z-OXfXtVL7Y
+  > [!NOTE]  
+> In the video, there's a mistake regarding my username. My GitHub username should be "Vincent-Ang523".
 ## Purpose
 Collects product data from eBay product listings page which can then be used for data analysis. Users can use this program to do research on a specific product on eBay.
 
