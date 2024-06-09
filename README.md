@@ -69,4 +69,56 @@ Users can use the graph to extrapolate some information. For example, the scatte
 
 The bar graph can also be used to determine which words are most often used in the product's title.
 
+## Functions
+Excluding the main() function, there are 5 functions
 
+### scraper(link)
+This function takes the URL of the product's listings page and uses the BeautifulSoup library to extract data regarding each listing's title, price, and number of watchers or sales.
+
+The function would then return a set of lists containing the names, prices, and watchers data of all of the listings.
+
+> [!NOTE]  
+> The function only takes data from the product listings page instead of each product's own page.
+>
+> I initially wanted to take data from each product's page as it provided more accurate data regarding the number of watchers or sales. However, when I wrote my code to do this, the program became much slower, taking over a few minutes to fetch all the data. So, I decided against doing this.
+
+
+### data_cleaning(names, prices, watchers)
+This function takes three lists, names, prices, and watchers, and re-formats the data into a table or dataframe using the Pandas library.
+
+First, the function would re-format each element in the watchers list by removing the commas and the "watchers" or "sold" suffix so it can be parsed as a float.
+```python
+remove_commas = watchers[i].replace(',', '')
+match_watchers = re.match(r'(\d+)(\+)? (sold|watchers)', remove_commas)
+formatted_watchers = match_watchers.group(1)
+```
+The function would also re-format each element in the prices list by removing the currency prefix
+```python
+formatted_prices.append(re.sub(r'[^0-9 to.]', '', prices[i]))
+```
+The function would then split the prices list into an "upper_price" and "lower_price" list by using a .split function with ' to ' as a separator.
+```python
+if 'to' in prices[i]:
+  lower_price.append(formatted_prices[i].split(' to ')[0])
+  upper_price.append(formatted_prices[i].split(' to ')[1])
+else:
+  lower_price.append(formatted_prices[i])
+  upper_price.append(formatted_prices[i])
+```
+The watchers list would also be split into two lists names "watchers_number" and "sold_number".
+```python
+if not 'watchers' in watchers[i]:
+  watchers_number.append('0')
+else:
+  watchers_number.append(formatted_watchers)
+if not 'sold' in watchers[i]:
+  sold_number.append('0')
+else:
+  sold_number.append(formatted_watchers)
+```
+The function would then return a dataframe in this format
+```python
+df = pd.DataFrame(
+        {'Name': names, 'Lower Price': lower_price, 'Upper Price': upper_price, 'Watchers': watchers_number,
+         'Sold': sold_number})
+```
